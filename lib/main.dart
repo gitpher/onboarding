@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // 배운점
 // Navigator.pushReplacement()로 뒤로가기를 없앰
+// GoogleFonts를 사용해서 글씨체 적용
 
-void main() {
+// 데이터를 메모리가 아닌 다른 곳에 저장해서 앱을 재시작해도 이전 데이터를 유지하는 방법 3가지
+// 1. 기기에 파일로 저장하기
+// 2. 기기의 데이터베이스에 저장하기
+// 3. 다른 컴퓨터(서버)에 저장하기
+
+late SharedPreferences prefs;
+
+void main() async {
+  // main() 함수에서 async를 쓰려면 필요
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // shared_preferences 인스턴스 생성
+  prefs = await SharedPreferences.getInstance();
+
   runApp(MyApp());
 }
 
