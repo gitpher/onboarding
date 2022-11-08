@@ -29,12 +29,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isOnboarded = prefs.getBool("isOnboarded") ?? false;
     return MaterialApp(
       theme: ThemeData(
         textTheme: GoogleFonts.getTextTheme('Jua'),
       ),
       debugShowCheckedModeBanner: false,
-      home: OnboardingPage(),
+      home: isOnboarded ? HomePage() : OnboardingPage(),
     );
   }
 }
@@ -90,6 +91,9 @@ class OnboardingPage extends StatelessWidget {
         next: Text("Next", style: TextStyle(fontWeight: FontWeight.w600)),
         done: Text("Done", style: TextStyle(fontWeight: FontWeight.w600)),
         onDone: () {
+          // Done 클릭시 isOnboarded = true로 저장
+          prefs.setBool("isOnboarded", true);
+
           // When done button is press
           // Done 클릭시 페이지 이동
           Navigator.pushReplacement(
@@ -110,6 +114,16 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Page!"),
+        actions: [
+          // 삭제 버튼
+          IconButton(
+            onPressed: () {
+              // SharedPreferences에 저장된 모든 데이터 삭제
+              prefs.clear();
+            },
+            icon: Icon(Icons.delete),
+          )
+        ],
       ),
       body: Center(
         child: Text(
