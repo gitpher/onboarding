@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
+// 배운점
+// Navigator.pushReplacement()로 뒤로가기를 없앰
+
 void main() {
   runApp(MyApp());
 }
@@ -69,7 +72,33 @@ class OnboardingPage extends StatelessWidget {
         done: Text("Done", style: TextStyle(fontWeight: FontWeight.w600)),
         onDone: () {
           // When done button is press
+          // Done 클릭시 페이지 이동
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
+          );
         },
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Home Page!"),
+      ),
+      body: Center(
+        child: Text(
+          "환영합니다!",
+          style: TextStyle(
+            fontSize: 24,
+          ),
+        ),
       ),
     );
   }
